@@ -1,35 +1,63 @@
+<div align="center">
+
 # 🎬 Lumora
 
-Painel interativo de filmes e séries — busque títulos, veja pôster, sinopse e avaliação, favorite, filtre por gênero, troque entre 7 idiomas e alterne entre tema claro/escuro. Projeto de portfólio construído com **React + Vite**, dados da **TMDB** e autenticação/armazenamento em nuvem opcional via **Firebase**.
+### Descubra o que assistir. Favorite. Continue de onde parou.
+
+Um painel interativo de filmes e séries — busque títulos, veja pôster, sinopse e avaliação, monte sua lista de favoritos e acesse tudo isso em português, inglês, espanhol, francês, alemão, italiano ou japonês.
+
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Firebase](https://img.shields.io/badge/Firebase-Auth%20%2B%20Firestore-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![TMDB](https://img.shields.io/badge/Dados-TMDB%20API-01B4E4?logo=themoviedatabase&logoColor=white)](https://www.themoviedb.org/)
+[![License](https://img.shields.io/badge/uso-portfólio%20pessoal-lightgrey)]()
+
+</div>
+
+---
+
+## 📌 Sobre o projeto
+
+**Lumora** é um projeto de portfólio que recria a experiência de navegar por um catálogo de streaming — pensado do zero para treinar consumo de API, gerenciamento de estado, autenticação, internacionalização e design de interface responsiva em React.
+
+Não é afiliado a nenhum serviço de streaming: os dados de filmes e séries vêm da [TMDB](https://www.themoviedb.org/), e toda a identidade visual (nome, paleta, tipografia) foi criada especificamente para este projeto.
 
 ## ✨ Funcionalidades
 
-- 🔎 Busca de filmes e séries em tempo real (com debounce)
-- 🖼️ Pôster, título, sinopse e avaliação de cada título
-- ❤️ Favoritar/desfavoritar com um clique
-- 📱 Layout 100% responsivo (mobile-first)
-- 🎭 Filtro por gênero
-- 🌗 Tema claro/escuro persistido
-- 💾 Favoritos salvos no `localStorage` — funcionam mesmo sem conta
-- 🌍 Interface em 7 idiomas: Português, English, Español, Français, Deutsch, Italiano, 日本語
-- 🔐 Conta opcional (e-mail/senha via Firebase) que sincroniza os favoritos entre dispositivos
+| | |
+|---|---|
+| 🔎 **Busca em tempo real** | Encontre filmes e séries digitando o título, com resultados atualizados enquanto você digita |
+| 🖼️ **Ficha completa** | Pôster, título, sinopse e avaliação de cada título, num modal de detalhes |
+| ❤️ **Favoritos** | Salve títulos com um clique — funciona até sem criar conta |
+| 🎭 **Filtro por gênero** | Explore por categoria, combinando resultados de filme e série |
+| ♾️ **Scroll infinito** | Novos títulos carregam automaticamente conforme você rola a página |
+| 🌗 **Tema claro/escuro** | Alternância instantânea, com preferência salva |
+| 🌍 **7 idiomas** | Português, English, Español, Français, Deutsch, Italiano, 日本語 |
+| 🔐 **Conta opcional** | Login por e-mail/senha via Firebase sincroniza favoritos entre dispositivos — mas nunca é obrigatório |
+| 📱 **100% responsivo** | Layout pensado mobile-first |
 
-## 🧱 Stack
+## 🧱 Tecnologias
 
-- [React 18](https://react.dev/) + [Vite](https://vitejs.dev/)
-- [React Router](https://reactrouter.com/) para navegação
-- [react-i18next](https://react.i18next.com/) para internacionalização
-- [Firebase](https://firebase.google.com/) (Authentication + Firestore) — **opcional**
-- [TMDB API](https://www.themoviedb.org/) como fonte dos dados de filmes/séries
+- **React 18** + **Vite** — base da aplicação
+- **React Router** — navegação entre páginas
+- **react-i18next** — internacionalização
+- **Firebase** (Authentication + Firestore) — conta de usuário e sincronização de favoritos, de forma opcional
+- **TMDB API** — fonte dos dados de filmes e séries
 
-## 🚀 Rodando localmente
+## 🎨 Identidade visual
+
+O design segue um conceito de "marquise de cinema": fundo escuro, tipografia condensada nos títulos, acentos em dourado e coral, e selos de avaliação inspirados em canhotos de ingresso — uma forma de fugir do visual genérico de dashboard e criar algo com personalidade própria.
+
+## 🚀 Rodando o projeto localmente
 
 ```bash
+git clone https://github.com/seu-usuario/lumora.git
+cd lumora
 npm install
 cp .env.example .env
 ```
 
-Preencha o `.env` (veja a seção abaixo) e depois:
+Preencha o `.env` com sua chave gratuita da [TMDB](https://www.themoviedb.org/settings/api) (obrigatória para carregar o catálogo) e, se quiser ativar login de verdade, com as credenciais de um projeto [Firebase](https://console.firebase.google.com/) (opcional).
 
 ```bash
 npm run dev
@@ -37,26 +65,9 @@ npm run dev
 
 O site abre em `http://localhost:5173`.
 
-## 🔑 Configurando as chaves
+> Sem chave do Firebase configurada, o site funciona normalmente em **modo convidado**: busca, filtros e favoritos continuam ativos, salvos no `localStorage`.
 
-### TMDB (obrigatório para carregar filmes/séries)
-
-1. Crie uma conta grátis em https://www.themoviedb.org
-2. Vá em **Configurações → API** e gere uma chave (v3 auth)
-3. Cole em `VITE_TMDB_API_KEY` no `.env`
-
-Sem essa chave, o site sobe normalmente mas mostra um aviso no lugar da lista de filmes — não existe forma de consultar o catálogo do TMDB sem uma chave, mesmo anonimamente, pois isso é uma exigência da própria API deles (gratuita, mas obrigatória).
-
-### Firebase (opcional — só necessário para "criar conta")
-
-1. Crie um projeto em https://console.firebase.google.com
-2. **Authentication** → ative o provedor "E-mail/senha"
-3. **Firestore Database** → crie um banco (pode começar em modo teste)
-4. Em **Configurações do projeto → Seus apps**, crie um app Web e copie as chaves para o `.env`
-
-Sem Firebase configurado, o site funciona 100% em **modo convidado**: busca, filtros, favoritos (via `localStorage`) e troca de idioma/tema continuam funcionando — só o botão "Entrar" avisa que a conta ainda não está disponível.
-
-## 📁 Estrutura
+## 📁 Estrutura do código
 
 ```
 src/
@@ -69,15 +80,20 @@ src/
   i18n.js       configuração do react-i18next
 ```
 
-## 🏗️ Build para produção
+## 🗺️ Próximos passos
 
-```bash
-npm run build
-npm run preview
-```
+- [ ] Página de detalhes dedicada (em vez de modal)
+- [ ] Recomendações baseadas nos favoritos
+- [ ] Trailers integrados via YouTube
 
-O build final fica em `dist/`, pronto para publicar em Vercel, Netlify, GitHub Pages, etc.
+## 📄 Licença
 
-## ⚠️ Nota
+Projeto de portfólio pessoal, criado para fins de estudo e demonstração de habilidades. Sinta-se à vontade para explorar o código como referência.
 
-Este é um projeto de portfólio pessoal. Não é afiliado à Netflix, Amazon Prime Video, HBO Max ou qualquer outro serviço de streaming — a semelhança visual é só uma referência de estilo.
+---
+
+<div align="center">
+
+Feito por **Gabriel Herrera** — [GitHub](https://github.com/) · [LinkedIn](https://linkedin.com/)
+
+</div>
