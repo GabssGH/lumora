@@ -40,6 +40,46 @@ export function toTmdbLang(appLang) {
   return map[appLang] || 'en-US'
 }
 
+// Mapeia o idioma da interface para a região usada no endpoint de
+// "onde assistir" (a disponibilidade em cada plataforma varia por país).
+export function toWatchRegion(appLang) {
+  const map = { pt: 'BR', en: 'US', es: 'ES', fr: 'FR', de: 'DE', it: 'IT', ja: 'JP' }
+  return map[appLang] || 'US'
+}
+
+const providersCache = new Map()
+
+// Busca em quais plataformas o título está disponível (assinatura, grátis
+// com anúncios, aluguel ou compra, nessa ordem de preferência) na região
+// do idioma atual. Resultado fica em cache em memória por título+região,
+// já que a mesma requisição pode se repetir ao rolar a grade.
+export async function fetchWatchProviders(mediaType, tmdbId, appLang) {
+  const region = toWatchRegion(appLang)
+  const cacheKey = `${mediaType}-${tmdbId}-${region}`
+  if (providersCache.has(cacheKey)) return providersCache.get(cacheKey)
+
+  const path = mediaType === 'tv' ? `/tv/${tmdbId}/watch/providers` : `/movie/${tmdbId}/watch/providers`
+  let result = { providers: [], link: null }
+  try {
+    const data = await tmdbFetch(path, {})
+    const byRegion = data.results?.[region]
+    if (byRegion) {
+      const list = byRegion.flatrate || byRegion.ads || byRegion.free || byRegion.rent || byRegion.buy || []
+      const seen = new Set()
+      result = {
+        providers: list
+          .filter((p) => (seen.has(p.provider_id) ? false : seen.add(p.provider_id)))
+          .map((p) => ({ id: p.provider_id, name: p.provider_name, logoPath: p.logo_path })),
+        link: byRegion.link || null,
+      }
+    }
+  } catch {
+    // silencioso: se falhar, o card simplesmente não mostra botões de plataforma
+  }
+  providersCache.set(cacheKey, result)
+  return result
+}
+
 function normalizeItem(raw) {
   const mediaType = raw.media_type || (raw.first_air_date ? 'tv' : 'movie')
   return {

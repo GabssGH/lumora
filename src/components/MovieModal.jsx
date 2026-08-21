@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { BACKDROP_BASE, IMAGE_BASE } from '../services/tmdb.js'
 import { useFavorites } from '../context/FavoritesContext.jsx'
+import ProviderButtons from './ProviderButtons.jsx'
 
 export default function MovieModal({ item, onClose }) {
   const { t } = useTranslation()
@@ -36,6 +37,7 @@ export default function MovieModal({ item, onClose }) {
             >
               {fav ? `♥ ${t('remove_favorite')}` : `♡ ${t('add_favorite')}`}
             </button>
+            <ProviderButtons item={item} size="md" maxVisible={8} />
           </div>
         </div>
       </div>

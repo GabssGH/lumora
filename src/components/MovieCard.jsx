@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { IMAGE_BASE } from '../services/tmdb.js'
 import { useFavorites } from '../context/FavoritesContext.jsx'
+import ProviderButtons from './ProviderButtons.jsx'
 
 export default function MovieCard({ item, onOpen }) {
   const { t } = useTranslation()
@@ -10,17 +11,20 @@ export default function MovieCard({ item, onOpen }) {
 
   return (
     <div className="card" onClick={() => onOpen(item)}>
-      <button
-        className={`fav-btn ${fav ? 'is-fav' : ''}`}
-        aria-label={fav ? t('remove_favorite') : t('add_favorite')}
-        title={fav ? t('remove_favorite') : t('add_favorite')}
-        onClick={(e) => {
-          e.stopPropagation()
-          toggleFavorite(item)
-        }}
-      >
-        {fav ? '♥' : '♡'}
-      </button>
+      <div className="card-overlay-top">
+        <ProviderButtons item={item} size="sm" />
+        <button
+          className={`fav-btn ${fav ? 'is-fav' : ''}`}
+          aria-label={fav ? t('remove_favorite') : t('add_favorite')}
+          title={fav ? t('remove_favorite') : t('add_favorite')}
+          onClick={(e) => {
+            e.stopPropagation()
+            toggleFavorite(item)
+          }}
+        >
+          {fav ? '♥' : '♡'}
+        </button>
+      </div>
       {item.posterPath ? (
         <img
           className="card-poster"
