@@ -80,4 +80,14 @@ O build final fica em `dist/`, pronto para publicar em Vercel, Netlify, GitHub P
 
 ## ⚠️ Nota
 
+<<<<<<< HEAD
 Este é um projeto de portfólio pessoal. Não é afiliado à Netflix, Amazon Prime Video, HBO Max ou qualquer outro serviço de streaming — a semelhança visual é só uma referência de estilo.
+=======
+---
+
+<div align="center">
+
+Feito por **Gabriel Herrera** — [GitHub](https://github.com/GabssGH) · [LinkedIn](https://www.linkedin.com/in/gabriel-herrera-806bb4367/)
+
+</div>
+>>>>>>> 60f7280d1aaffdc8c538c5b8648b30cadb893d2a
