@@ -94,6 +94,6 @@ Projeto de portfólio pessoal, criado para fins de estudo e demonstração de ha
 
 <div align="center">
 
-Feito por **Gabriel Herrera** — [GitHub](https://github.com/) · [LinkedIn](https://linkedin.com/)
+Feito por **Gabriel Herrera** — [GitHub](https://github.com/GabssGH) · [LinkedIn](https://www.linkedin.com/in/gabriel-herrera-806bb4367/)
 
 </div>
